@@ -1,0 +1,23 @@
+#+TITLE: Item 2: Case-Insensitive String
+#+INCLUDE: "./latex_header.org"
+
+* Questions
+#+begin_quote
+So you want a case-insensitive string class? Your mission, should you choose to accept it, is to write one.
+#+end_quote
+
+1. What does "case-insensitive" mean?
+2. Write a =ci_string=  class that is identical to the standard =std::string= but that is case-insensitive in the same way as the commonly provided extension =stricmp()= . A =ci_string=  should be usable as follows:
+
+#+begin_src cpp
+  ci_string s( "AbCdE" );
+
+  // case insensitive
+  assert( s == "abcde" );
+  assert( s == "ABCDE" );
+
+  // still case-preserving, of course
+  assert( strcmp( s.c_str(), "AbCdE" ) == 0 );
+  assert( strcmp( s.c_str(), "abcde" ) != 0 );
+#+end_src
+3. Is making case sensitivity a property of the object a good idea?
