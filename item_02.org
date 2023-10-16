@@ -8,7 +8,6 @@ So you want a case-insensitive string class? Your mission, should you choose to 
 
 1. What does "case-insensitive" mean?
 2. Write a =ci_string=  class that is identical to the standard =std::string= but that is case-insensitive in the same way as the commonly provided extension =stricmp()= . A =ci_string=  should be usable as follows:
-
 #+begin_src cpp
   ci_string s( "AbCdE" );
 
@@ -20,4 +19,10 @@ So you want a case-insensitive string class? Your mission, should you choose to 
   assert( strcmp( s.c_str(), "AbCdE" ) == 0 );
   assert( strcmp( s.c_str(), "abcde" ) != 0 );
 #+end_src
-3. Is making case sensitivity a property of the object a good idea?
+3. [@3] Is making case sensitivity a property of the object a good idea?
+
+* Answer
+
+1. Case-insensitivity is a suprising non-trivial. It depends on the language, encoding, and the application.
+2. There can be several ways to do this. One approach is to make a wrapper around =std::string=. However, note that the standard library provides =std::basic_string= (of which =std::string= is a specialization). This template class can be customized with =char_traits=. See [[./item_02_ci_string.hpp]] for details.
+3. Maybe it's more flexible to have separate functions first.
