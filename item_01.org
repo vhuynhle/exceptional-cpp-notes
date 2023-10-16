@@ -1,0 +1,76 @@
+#+TITLE: Iterators
+#+INCLUDE: "./latex_header.org"
+
+* Question
+#+begin_quote
+The following program has at least four iterator-related problems. How many can you find?
+#+end_quote
+
+#+begin_src cpp
+  std::vector<Date> e;
+  copy(istream_iterator<Date>(cin),
+       istream_iterator<Date>(),
+       back_inserter(e));
+  vector<Date>::iterator first = find(e.begin(), e.end(),
+                                      "01/01/95");
+  vector<Date>::iterator last = find(e.begin(), e.end(),
+                                     "12/31/95");
+  ,*last = "12/30/95";
+  copy(first,
+       last,
+       ostream_iterator<Date>(cout, "\n"));
+  e.insert(--e.end(), TodaysDate());
+  copy(first,
+       last,
+       ostream_iterator<Date>(cout, "\n"));
+#+end_src
+
+* Answer
+
+The first 4 statements are OK:
+#+begin_src cpp
+  std::vector<Date> e;
+  copy(istream_iterator<Date>(cin),
+      istream_iterator<Date>(),
+      back_inserter(e));
+  vector<Date>::iterator first = find(e.begin(), e.end(),
+                                      "01/01/95");
+  vector<Date>::iterator last = find(e.begin(), e.end(),
+                                     "12/31/95");
+#+end_src
+
+The first error is that =last= may be =e.end()=, which cannot be deferenced:
+
+#+begin_src cpp
+  ,*last = "12/30/95";
+#+end_src
+
+The second error is that =[first, last)= may not be a valid range. The variable names are misleading, but there is no guarantee that =first= comes before =last=.
+#+begin_src cpp
+  copy(first,
+      last,
+      ostream_iterator<Date>(cout, "\n"));
+#+end_src
+
+The third potential error involves the expression =--e.end()=. =e.end()= is most likely of type =Date*= (pointer type).
+In this case, it's a /prvalue/ and cannot be modified.
+
+#+begin_src cpp
+  e.insert(--e.end(), TodaysDate());
+#+end_src
+
+We can instead write:
+
+#+begin_src cpp
+  e.insert(e.end() - 1, TodaysDate());
+#+end_src
+However, this still does not work if =e= is empty.
+
+The last issue is related to iterator invalidation. Because the vector has changed (with =insert=), =first= and =last= may have been invalidated.
+Therefore, the final statement
+
+#+begin_src cpp
+  copy(first, last,
+       ostream_iterator<Date>(cout, "\n"));
+#+end_src
+may no longer work.

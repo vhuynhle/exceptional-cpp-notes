@@ -33,3 +33,8 @@
 compile_commands.json
 build
 .cache
+
+# Org mode export artifacts
+*.bbl
+*.tex
+_minted*
