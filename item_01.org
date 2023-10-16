@@ -74,3 +74,11 @@ Therefore, the final statement
        ostream_iterator<Date>(cout, "\n"));
 #+end_src
 may no longer work.
+
+* Summary
+Four things to remember when using iterators:
+
+1. Valid values: Can the iterator be dereferenced?
+2. Valid lifetimes: Is the iterator valid or has been invalidated?
+3. Valid ranges: Are =first= and =last= pointing to the same container, and does =first= come before =last=?
+4. Illegal built-in manipulation: e.g., is the code trying to modify a temporary of built-in type? A good thing is that compilers often catch this error.
