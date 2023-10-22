@@ -41,4 +41,4 @@ The operator only support =basic_ostream= and =basic_string= with the same =Trai
        using ci_string = std::basic_string<char, ci_char_traits>;
      #+end_src
 Therefore, =cout= doesn't work with =ci_string=.
-3. We need to decide the meaning of these operators, then we can define them ourselves or use =.c_str()= to use the existing operators.
+3. [@3] We need to decide the meaning of these operators, then we can define them ourselves or use =.c_str()= to use the existing operators.
