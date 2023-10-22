@@ -1,3 +1,4 @@
 - [[./item_01.org][Item 1: Iterators]]
 - [[./item_02.org][Item 2: Case-Insensitive Strings]]
 - [[./item_03.org][Item 3: Case-Insensitive Strings - Part 2]]
+- [[./item_04.org][Item 4: Maximally Reusable Generic Containers - Part 1]]
