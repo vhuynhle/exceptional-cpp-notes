@@ -27,5 +27,5 @@ How can you provide maximum usability for construction and assignment?
 #+end_src
 
 * Answer
-I would use deep copy for copy construction and copy assignment. That provides the value semantic to the class, and is the most predictable way.
+I would use the default copy constructor and default copy assignment operator, which already copy the contents of =v_=.
 
