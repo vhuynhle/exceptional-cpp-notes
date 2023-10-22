@@ -1,3 +1,7 @@
+#+LATEX_COMPILER: xelatex
 #+LATEX_HEADER_EXTRA: \usepackage{mdframed}
 #+LATEX_HEADER_EXTRA: \BeforeBeginEnvironment{minted}{\begin{mdframed}}
 #+LATEX_HEADER_EXTRA: \AfterEndEnvironment{minted}{\end{mdframed}}
+#+LATEX_HEADER: \usepackage[scaled]{helvet} \renewcommand\familydefault{\sfdefault}
+#+LATEX_HEADER: \usepackage{fontspec}
+#+LATEX_HEADER: \setmonofont[Scale=0.8]{Cascadia Code}

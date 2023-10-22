@@ -1,0 +1,44 @@
+#+INCLUDE: "./latex_header.org"
+#+TITLE: Item 3: Case-Insensitive Strings, Part 2
+
+* Questions
+Consider the solution in Item 2.
+
+1. Is it safe to inherit =ci_char_traits= from =char_traits<char>= this way?
+2. Why does the following code fail to compile?
+#+begin_src cpp
+  ci_string s = "abc"; 
+  cout << s << endl;
+#+end_src
+3. [@3] What about using other operators (for example, =+=, ~+=~, ~=~) and mixing strings and =ci_strings= as arguments? For example:
+#+begin_src cpp
+  string    a = "aaa"; 
+  ci_string b = "bbb";
+  string    c = a + b;  
+#+end_src
+
+* Answers
+
+1. Yes, because =ci_char_traits= is never used polymorphically through a pointer or reference to the base class =char_traits=.
+2. The standard provides operator =<<= with the following signature:
+
+#+begin_src cpp
+  template< class CharT, class Traits, class Allocator >
+  std::basic_ostream<CharT, Traits>&
+      operator<<(std::basic_ostream<CharT, Traits>& os,
+                 const std::basic_string<CharT, Traits, Allocator>& str);  
+#+end_src
+The operator only support =basic_ostream= and =basic_string= with the same =Traits= parameter. However, =ci_string= and =cout= have different =Traits= parameter:
+  a. =cout= is of type =ostream= and has the =Traits= parameter set to =std::char_traits=:
+     #+begin_src cpp
+       template<
+           class CharT,
+           class Traits = std::char_traits<CharT>
+       > class basic_ostream;
+#+end_src
+  b. [@b] =ci_string= as we implemented, use =Traits = ci_char_traits=:
+     #+begin_src cpp
+       using ci_string = std::basic_string<char, ci_char_traits>;
+     #+end_src
+Therefore, =cout= doesn't work with =ci_string=.
+3. We need to decide the meaning of these operators, then we can define them ourselves or use =.c_str()= to use the existing operators.

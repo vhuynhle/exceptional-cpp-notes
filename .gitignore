@@ -37,4 +37,5 @@ build
 # Org mode export artifacts
 *.bbl
 *.tex
-_minted*
+_minted**
+*.pyg
