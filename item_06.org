@@ -1,0 +1,72 @@
+#+INCLUDE: ./latex_header.org
+#+TITLE: Item 6: Temporary Objects
+
+* Question
+/Unnecessary and/or temporary objects are frequent culprits that can throw all your hard work—and your program's performance—right out the window. How can you spot them and avoid them?/
+
+You are doing a code review. A programmer has written the following function, which uses unnecessary temporary objects in at least three places. How many can you identify, and how should the programmer fix them?
+
+#+begin_src cpp
+  string FindAddr(list<Employee> emps, string name) 
+  {
+      for (auto i = emps.begin(); i != emps.end(); i++) {
+          if (*i == name) {
+              return i->addr;
+          }
+      }
+      return "";
+  }
+#+end_src
+
+* Answer
+
+The function parameters can be passed as =const= references:
+
+#+begin_src cpp
+  string FindAddr(const list<Employee>& emps,
+                  const string& name);
+#+end_src
+
+=i++= creates a temporary, so =++i= may be more efficient.
+
+=emps.end()= is re-calculated every time. To avoid both this and the previous issue, we can use the for-each syntax:
+#+begin_src cpp
+  for (const auto &e: emps) {
+      // ...
+  }
+#+end_src
+
+From the code, the =Employee= class has a comparison operator or a conversion to =string=. The first case may introduce a temporary object depending on how it is implemented, and the second case always creates a temporary =string=.
+
+Finally, the function creates a string to return, but that cannot be avoided.
+
+I would fix the function as follows:
+
+#+begin_src cpp
+  string FindAddr(const list<Employee>& emps,
+                  const string& name)
+  {
+      for (const auto& e: emps) {
+          if (e.getName() == name) {
+              return e.addr;
+          }
+      }
+      return "";
+  }
+#+end_src
+
+Or use the built-in =find= function:
+
+#+begin_src cpp
+  string FindAddr(const list<Employee>& emps,
+                  const string& name)
+  {
+      auto it = std::find_if(emps.begin(), emps.end(),
+                             [&name](const auto& e) {
+                                 return e.getName() == name;
+                             });
+      return (it == emps.end()) ? "" : it->addr;
+  }
+#+end_src
+
+

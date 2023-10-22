@@ -2,3 +2,5 @@
 - [[./item_02.org][Item 2: Case-Insensitive Strings]]
 - [[./item_03.org][Item 3: Case-Insensitive Strings - Part 2]]
 - [[./item_04.org][Item 4: Maximally Reusable Generic Containers - Part 1]]
+- [[./item_05.org][Item 5: Maximally Reusable Generic Containers - Part 2]]
+- [[./item_06.org][Item 6: Temporary Objects]]  
