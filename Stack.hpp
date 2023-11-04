@@ -121,19 +121,21 @@ public:
         ++vused_;
     }
 
-    T Pop()
+    void Pop()
     {
         if (vused_ == 0) {
             throw std::out_of_range("Empty stack");
         }
 
-        // Take the content of the top item
-        Stack res { std::move(v_[vused_ - 1]) };
-
-        // Updating the size
         --vused_;
+    }
 
-        return res;
+    T& Top()
+    {
+        if (vused_ == 0) {
+            throw std::out_of_range("Empty stack");
+        }
+        return v_[vused_ - 1];
     }
 
 private:
