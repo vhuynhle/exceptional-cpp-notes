@@ -118,6 +118,7 @@ public:
         }
 
         v_[vused_] = obj;
+        ++vused_;
     }
 
     T Pop()
