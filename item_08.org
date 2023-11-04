@@ -1,0 +1,5 @@
+#+include: ./latex_header.org
+#+TITLE: Item 8: Writing Exception-Safe Code - Part 1
+
+- Exception safe :: Objects should always be in a correct and consistent state, regardless of any exceptions that may be thrown in the course of execution
+- Exception neutral :: If an exception is thrown, it should be propagated through to the caller for him to handle it, because he knows the context of the exception and we don't.
