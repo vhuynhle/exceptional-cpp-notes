@@ -78,8 +78,24 @@ public:
         return *this;
     }
 
-    Stack(Stack&&) = default;
-    Stack& operator=(Stack&&) = default;
+    Stack(Stack&& other)
+    {
+        // Use swap and let other's destructor do the cleaning job
+        using std::swap;
+        swap(v_, other.v_);
+        swap(vsize_, other.vsize_);
+        swap(vused_, other.vused_);
+    }
+
+    Stack& operator=(Stack&& other)
+    {
+        // Use swap and let other's destructor do the cleaning job
+        using std::swap;
+        swap(v_, other.v_);
+        swap(vsize_, other.vsize_);
+        swap(vused_, other.vused_);
+        return *this;
+    }
 
     std::size_t Count() const
     {
@@ -90,7 +106,7 @@ public:
     {
         // Re-allocate if needed
         if (vused_ == vsize_) {
-            const auto new_size = 2 * vsize_;
+            const auto new_size = (vsize_ > 0) ? 2 * vsize_ : 10;
             T* tmp = NewCopy(v_, vsize_, new_size);
 
             // Delete old stack, this will not throw
