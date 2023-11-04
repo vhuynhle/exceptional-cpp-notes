@@ -6,3 +6,4 @@
 - [[./item_06.org][Item 6: Temporary Objects]]
 - [[./item_07.org][Item 7: Using the Standard Library]]
 - [[./item_08.org][Item 8: Writing Exception-Safe Code - Part 1]]
+- Item 9: Writing Exception-Safe Code - Part 2
