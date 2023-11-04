@@ -67,6 +67,9 @@ public:
         return *this;
     }
 
+    Stack(Stack&&) = default;
+    Stack& operator=(Stack&&) = default;
+
 private:
     T* v_;
     std::size_t vsize_;
