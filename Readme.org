@@ -8,3 +8,4 @@
 - [[./item_08.org][Item 8: Writing Exception-Safe Code - Part 1]]
 - Item 9: Writing Exception-Safe Code - Part 2
 - [[./item_10.org][Item 10: Writing Exception-Safe Code - Part 3]]
+- [[./item_11.org][Item 11: Writing Exception-Safe Code - Part 4]]

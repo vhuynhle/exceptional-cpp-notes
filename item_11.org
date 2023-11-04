@@ -1,0 +1,21 @@
+#+include: ./latex_header.org
+#+TITLE: Item 11. Writing Exception-Safe Code - Part 4
+
+* Questions
+1. What are the important exception-safety guarantees?
+2. For the =Stack<T>= that was just implemented, what are the requirements on =T=, the contained type?
+
+* Answer
+
+** Exception-safety guarantees
+
+1. Basic guarantee: Even in the presence of exceptions thrown by =T= or other exceptions, =Stack= doesn't leak resources.
+2. Strong guarantee: If an operation terminates because of an exception, program state will remain unchanged.
+3. Nothrow guarantee: The function will not emit an exception under any circumstances.
+
+** Requirements of the contained type =T=
+1. Default constructible
+2. Copy constructible, if =Pop= returns a value
+3. Non-throwing destructor
+4. Exception-safe copy assignment, so that value of =v_= can be set
+5. Exception-safe move assignment, if we want to add =Push= with =rvalue=.
