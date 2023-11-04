@@ -1,0 +1,6 @@
+#+include: ./latex_header.org
+#+TITLE: Item 10: Writing Exception-Safe Code - Part 3
+
+- In each function, take all the code that might emit an exception and do all that work safely off to the side; only then, when you know that the real work has succeeded, should you modify the program state (and clean up) using only nonthrowing operations.
+- A function with two different responsibilities is difficult to make exception-safe.
+- A copy assignment operator that is written in such a way that it must check for self-assignment is probably not strongly exception-safe either.
